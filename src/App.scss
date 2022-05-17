@@ -1,0 +1,26 @@
+.app {
+  position: relative;
+
+
+  // 路由过渡样式
+  .fade-enter, .fade-appear {
+    opacity: .3;
+  }
+  .fade-enter-active, .fade-appear-active { 
+    opacity: 1;
+    transition: opacity 500ms ease-in;
+  }
+  .fade-enter-done {
+    opacity: 1;
+  }
+  .fade-exit {
+    opacity: 1;
+  }
+  .fade-exit-active {
+    opacity: .3;
+    transition: opacity 300ms ease-in;
+  }
+  .fade-exit-done {
+    opacity: .3;
+  }
+}

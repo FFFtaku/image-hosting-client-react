@@ -1,0 +1,42 @@
+.work{
+  width:100vw;
+  height: 100vh;
+  transition: opacity 1s linear;
+  position: absolute;
+
+  .work-layout{
+    height: 100%;
+    width: 100%;
+  }
+
+  // 对模态框中内容样式修改
+  .modal{
+    .modal-form{
+      display: flex;
+      justify-content: space-around;
+      background-color: rgba(203, 224, 224, 0.329);
+      box-shadow: 2px 2px 5px rgba(110, 108, 108, 0.349);
+      border-radius: 5px;
+      padding-top: 20px;
+    }
+  }
+
+  // antd默认样式
+  .logo {
+    float: left;
+    width: 120px;
+    height: 31px;
+    margin: 16px 24px 16px 0;
+    background: rgba(255, 255, 255, 0.3);
+  }
+  
+  .logo {
+    float: right;
+    margin: 16px 0 16px 24px;
+  }
+  
+  .site-layout-background {
+    background: #fff;
+  }
+
+}

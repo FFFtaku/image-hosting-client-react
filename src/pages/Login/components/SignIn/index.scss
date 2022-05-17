@@ -1,0 +1,17 @@
+.sign-in{
+  width: 270px;
+
+  
+  // antd默认样式
+  .login-form-forgot {
+    float: right;
+  }
+  .ant-col-rtl{
+    .login-form-forgot {
+      float: left;
+    }
+  }
+  .login-form-button {
+    width: 100%;
+  }
+}
