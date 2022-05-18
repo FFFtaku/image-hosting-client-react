@@ -34,11 +34,24 @@ function postChangeResourceName({ resource_unique_id, resource_new_name }) {
   });
 }
 
+function postCreateResource({resource_name}){
+  return Post('/resource/create_resource',{
+    resource_name
+  })
+}
+
+function postImageByResource({resource_unique_id}){
+  return Post('/image/image_by_resource',{
+    resource_unique_id
+  })
+}
 export {
   getProfile,
   postInitProfile,
   postBindTel,
   postChangeProfileName,
   getResource,
-  postChangeResourceName
+  postChangeResourceName,
+  postCreateResource,
+  postImageByResource
 }

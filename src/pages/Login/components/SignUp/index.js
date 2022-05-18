@@ -1,8 +1,13 @@
+import './index.scss';
+
 import React from 'react';
 import { Form, Input, Button } from 'antd';
 import { UserOutlined, LockOutlined, MailOutlined } from '@ant-design/icons';
-import './index.scss';
+import {useSelector,  useDispatch} from 'react-redux'
 
+// actions
+import {actionSetAuthCodeReaminTime} from '@/store/actions/loginAction';
+// utils
 import antdNotification from '@/utils/private/antdNotification';
 
 // 公共组件
@@ -16,9 +21,12 @@ import {
 export default function SignUp(props) {
   const { changeLoginState } = props;
   const [form] = Form.useForm();
+
+  // redux
+  const selector = useSelector(store => store.login);
+  const dispatch = useDispatch();
   // 注册逻辑
   const handleSubmit = (values) => {
-    console.log('Received values of form: ', values);
     let { username, password, authCode } = values;
     postRegister({
       'account_id_email': username,
@@ -65,6 +73,14 @@ export default function SignUp(props) {
       });
     });
   }
+
+  const handleSetAuthCodeRemainTime=(remainDuring)=>{
+    if(remainDuring){
+      dispatch(actionSetAuthCodeReaminTime(remainDuring))
+    }else{
+      dispatch(actionSetAuthCodeReaminTime(null))
+    }
+  }
   return (
     <div className='sign-up'>
       <Form
@@ -104,7 +120,16 @@ export default function SignUp(props) {
               prefix={<MailOutlined className="site-form-item-icon" />}
               placeholder="邮箱验证码"
             />
-            <DebounceButton onClick={handleClickGetAuthCode} during={45}>验证码</DebounceButton>
+            <DebounceButton 
+            onClick={handleClickGetAuthCode} 
+            during={60}
+            firstDebounce = {true}
+            firstDebounceDuring = {selector.authCodeRemainTime}
+            getRemainTime = {handleSetAuthCodeRemainTime}
+            debounceEnd = {handleSetAuthCodeRemainTime}
+            >
+              验证码
+             </DebounceButton>
           </div>
 
         </Form.Item>

@@ -4,6 +4,7 @@ import Login from '@/pages/Login';
 import Work from '@/pages/Work';
 import WorkImageDisplay from '@/pages/WorkImageDisplay';
 import WorkImageModify from '@/pages/WorkImageModify';
+import WorkEmpty from '@/pages/WorkEmpty';
 
 const routes = [
   {
@@ -16,6 +17,10 @@ const routes = [
     children:[
       {
         path:'',
+        element:<WorkEmpty />
+      },
+      {
+        path:'display',
         element:<WorkImageDisplay />
       },
       {

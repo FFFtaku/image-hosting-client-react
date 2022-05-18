@@ -7,17 +7,30 @@ import { Button } from 'antd';
  * 简单的基于antd的防抖按钮
  */
 export default function DebounceButton(props) {
-  const { onClick, during, children } = props;
+  const { onClick, 
+          during, 
+          firstDebounce, 
+          firstDebounceDuring, 
+          getRemainTime,
+          debounceEnd,
+          children } = props;
   const text = children;
   const [isPrevent, setIsPrevent] = React.useState(false);
-  const [currentDuring, setCurrentDuring] = React.useState(during);
+  const [currentDuring, setCurrentDuring] = React.useState(null);
+
   const timer = React.useRef(null);
   const currentDuringStatic = React.useRef(null);
 
   React.useEffect(()=>{
+    if(firstDebounce === true && firstDebounceDuring){
+      doDebounce(true);
+    }
     // 清除未完成的定时器
     return ()=>{
       clearInterval(timer.current);
+      if(getRemainTime){
+        getRemainTime(currentDuringStatic.current);
+      }
     }
   },[])
 
@@ -36,31 +49,44 @@ export default function DebounceButton(props) {
         if (res === false) {
           return;
         }
-        doDebounce();
+        doDebounce(false);
       }).catch(err => { });
     } else {
       if (debounceState === false) {
         return;
       }
-      doDebounce();
+      doDebounce(false);
     }
   }
-
-  const doDebounce = () => {
+  // 执行deboune
+  const doDebounce = (isFirst) => {
     setIsPrevent(true);
-    startDebounce();
+    startDebounce(isFirst);
   }
+  // 重置debounce状态
   const resetState = () => {
-    setCurrentDuring(during);
+    setCurrentDuring(null);
+    currentDuringStatic.current = null;
     setIsPrevent(false);
   }
 
-  const startDebounce = () => {
-    currentDuringStatic.current = during;
+  // debounce逻辑
+  const startDebounce = (isFirst) => {
+    let matchDuring = null;
+    if(isFirst){
+      matchDuring = firstDebounceDuring;
+    }else{
+      matchDuring = during;
+    }
+    currentDuringStatic.current = matchDuring;
+    setCurrentDuring(matchDuring);
     timer.current = setInterval(() => {
       if (currentDuringStatic.current - 1 === 0) {
+        if(debounceEnd){
+          debounceEnd();
+        }
         clearInterval(timer.current);
-        resetState();
+        return resetState();
       }
       setCurrentDuring(current => {
         currentDuringStatic.current = current - 1;

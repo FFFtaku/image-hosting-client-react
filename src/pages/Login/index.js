@@ -1,13 +1,12 @@
 import './index.scss';
 
-import React,{} from 'react';
+import React from 'react';
 import { unstable_batchedUpdates } from 'react-dom';
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 // 页面内部组件
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
-
 
 // 工具
 import * as authUtil from '@/utils/private/authUtil';
@@ -20,31 +19,33 @@ export default function Login(props) {
   const navigate = useNavigate();
 
   // componentDidMount
-  React.useEffect(()=>{
-    if(authUtil.checkAuth()){
-      navigate('/work',{replace:true});
+  React.useEffect(() => {
+    if (authUtil.checkAuth()) {
+      navigate('/work', { replace: true });
     }
-  },[]);
+  }, []);
 
+
+  
   const changeLoginState = (stateCode) => {
     setCurrentOpacity(0);
-    setTimeout(()=>{
-      unstable_batchedUpdates(()=>{
+    setTimeout(() => {
+      unstable_batchedUpdates(() => {
         setLoginState((prev) => {
           return stateCode;
         });
         setCurrentOpacity(null);
       })
-      
-    },600);
+
+    }, 600);
 
   };
 
   const handleClickLoginButton = (e) => {
     changeLoginState(1);
   }
-  const handleClickBack = (backTo)=>{
-    return (e)=>{
+  const handleClickBack = (backTo) => {
+    return (e) => {
       changeLoginState(backTo);
     }
   }
@@ -56,15 +57,15 @@ export default function Login(props) {
           if (loginState === 0) {
             return (
               <div
-              className="login-button" 
-              onClick={handleClickLoginButton} 
-              style={{ opacity: currentOpacity }}>
+                className="login-button"
+                onClick={handleClickLoginButton}
+                style={{ opacity: currentOpacity }}>
                 <i className='iconfont icon-user login-button-logo' />
               </div>
             )
           } else if (loginState === 1) {
             return (
-              <div className="sign-in-box" style={{opacity: currentOpacity}}>
+              <div className="sign-in-box" style={{ opacity: currentOpacity }}>
                 <div className="back-button">
                   <i className="iconfont icon-icon2" onClick={handleClickBack(0)} />
                 </div>
@@ -76,7 +77,7 @@ export default function Login(props) {
             )
           } else if (loginState === 2) {
             return (
-              <div className="sign-up-box" style={{opacity: currentOpacity}}>
+              <div className="sign-up-box" style={{ opacity: currentOpacity }}>
                 <div className="back-button">
                   <i className="iconfont icon-icon2" onClick={handleClickBack(0)} />
                 </div>
@@ -89,7 +90,7 @@ export default function Login(props) {
           }
         })(loginState)
       }
-      <div style={{opacity:0}}>cc</div>
+      <div style={{ opacity: 0 }}>cc</div>
     </div>
   );
 }

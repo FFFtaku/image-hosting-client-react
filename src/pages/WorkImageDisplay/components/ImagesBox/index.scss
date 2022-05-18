@@ -1,0 +1,34 @@
+.iamges-box{
+
+  width: 100%;
+  height: 100%;
+
+  .empty-state-box{
+
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    .desc{
+      color: #bfbfbb;
+      font-size: 1.35em;
+    }
+  }
+
+  .main-box{
+    height: 100%;
+    display: flex;
+    overflow: auto;
+    .main-box-inner{
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+
+      .each-item{
+        width: 20%;
+        padding: 15px;
+        border-radius: 8px;
+      }
+    }
+  }
+}

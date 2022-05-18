@@ -9,6 +9,15 @@
     width: 100%;
   }
 
+  // 点击增加resource按钮
+  .item-increase-button{
+    padding-left: 40px;
+
+    .item-increase-button-icon{
+      padding-top: 11px;
+      font-size: 1.6em;
+    }
+  }
   // 对模态框中内容样式修改
   .modal{
     .modal-form{
